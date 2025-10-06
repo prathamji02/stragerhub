@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "npx prisma migrate deploy && node server.js",
-    "build": "echo 'Build step complete. Prisma generate is handled by postinstall.'",
+    "start": "node node_modules/prisma/build/index.js migrate deploy && node server.js",
+    "build": "echo 'Build step complete.'",
     "postinstall": "node node_modules/prisma/build/index.js generate"
   },
   "dependencies": {
