@@ -8,6 +8,12 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 
 const api = axios.create({ baseURL: API_URL });
 
+// Helper function to format timestamp
+const formatTime = (date) => {
+    if (!date || !(date instanceof Date)) return '';
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+};
+
 function Spinner() {
     return <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>;
 }
@@ -25,40 +31,26 @@ function Modal({ isOpen, onClose, children }) {
 }
 
 function LoginScreen({ handleLogin, enrollmentNo, setEnrollmentNo, message, isLoading }) {
-  return (
-    <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h1 className="text-4xl font-bold mb-8 text-center leading-tight">
-            <span className="block text-2xl font-normal text-gray-400">Login to</span>
-            <span className="block text-5xl mt-1">IPU Friendlist</span>
-        </h1>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label htmlFor="enrollmentNo" className="block mb-2 text-sm font-medium text-gray-300">
-              Enrollment Number
-            </label>
-            <input
-              type="text"
-              id="enrollmentNo"
-              value={enrollmentNo}
-              onChange={(e) => setEnrollmentNo(e.target.value)}
-              placeholder="Enter your number"
-              required
-              className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full p-3 rounded bg-blue-600 font-bold hover:bg-blue-700 transition-colors flex justify-center items-center disabled:bg-blue-800 disabled:cursor-not-allowed h-12"
-          >
-            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> : 'Get OTP'}
-          </button>
-        </form>
-        {message && <p className="mt-4 text-center text-sm text-red-400">{message}</p>}
-      </div>
-    </div>
-  );
+    return (
+        <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+            <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
+                <h1 className="text-4xl font-bold mb-8 text-center leading-tight">
+                    <span className="block text-2xl font-normal text-gray-400">Login to</span>
+                    <span className="block text-5xl mt-1">IPU Friendlist</span>
+                </h1>
+                <form onSubmit={handleLogin}>
+                    <div className="mb-4">
+                        <label htmlFor="enrollmentNo" className="block mb-2 text-sm font-medium text-gray-300">Enrollment Number</label>
+                        <input type="text" id="enrollmentNo" value={enrollmentNo} onChange={(e) => setEnrollmentNo(e.target.value)} placeholder="Enter your number" required className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                    <button type="submit" disabled={isLoading} className="w-full p-3 rounded bg-blue-600 font-bold hover:bg-blue-700 transition-colors flex justify-center items-center disabled:bg-blue-800 disabled:cursor-not-allowed h-12">
+                        {isLoading ? <Spinner /> : 'Get OTP'}
+                    </button>
+                </form>
+                {message && <p className="mt-4 text-center text-sm text-red-400">{message}</p>}
+            </div>
+        </div>
+    );
 }
 
 function OtpScreen({ handleVerify, otp, setOtp, message, loginUserInfo, setView, isLoading }) {
@@ -105,40 +97,30 @@ function AboutScreen({ setView }) {
             <div className="w-full max-w-3xl mx-auto">
                 <button onClick={() => setView('home')} className="mb-6 text-blue-400 hover:underline">&larr; Back to Home</button>
                 <div className="bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg space-y-6 text-gray-300">
-                    
                     <div className="text-center">
                         <h1 className="text-4xl font-bold mb-2 text-white">Welcome to IPU Friendlist!</h1>
                         <p className="text-lg font-semibold text-blue-400">The exclusive network for GGSIPU students.</p>
                     </div>
-
                     <p>Hey, IPU students! Ever felt like you want to make more friends across different years and branches, but don't know where to start? We've built something amazing just for our university community.</p>
-                    
                     <p className="text-lg italic text-center text-gray-400 my-4">"Connect with real people. Have meaningful conversations. Anonymously."</p>
-
                     <p><strong className="text-white">IPU Friendlist is a secure platform built exclusively for the students of GGSIPU.</strong> Our unique system guarantees both <strong className="text-white">Authenticity and Anonymity</strong>, so you can chat with a verified fellow student without revealing who you are.</p>
-                    
                     <div className="bg-blue-900/50 p-4 rounded-lg text-center">
                         <h2 className="text-xl font-bold text-white">Initial Launch: GTBIT Campus</h2>
                         <p className="mt-2 text-blue-200">We are kicking things off with an exclusive launch for the students of **GTBIT**. If the response from our home campus is great, we will expand to include all other colleges of our university!</p>
                     </div>
-
                     <div className="pt-4 border-t border-gray-700">
                         <h2 className="text-2xl font-bold text-white mb-4">Getting Started: A Quick Guide</h2>
-                        
                         <h3 className="text-xl font-semibold text-white mb-2">One-Time Registration (100% Verified)</h3>
                         <p>To ensure our community is genuine, we have a simple, one-time verification process:</p>
                         <ul className="list-disc list-inside space-y-3 pl-4 mt-2">
                             <li><strong className="text-white">Offline (Recommended):</strong> Find one of our team members on campus for instant, in-person verification.</li>
                             <li><strong className="text-white">Online:</strong> Send an email to <span className="text-blue-400">airaworld28@gmail.com</span> with a clear photo of the front of your College ID card and your details (Enrollment No, Full Name, Phone No, Email ID, Gender) typed in the email.</li>
                         </ul>
-
                         <h3 className="text-xl font-semibold text-white mt-6 mb-2">Simple & Secure Login</h3>
                         <p>Once registered, log in anytime with your unique Enrollment Number. A One-Time Password (OTP) will be sent to your registered email for security.</p>
-
                         <h3 className="text-xl font-semibold text-white mt-6 mb-2">Create Your Alias</h3>
                         <p><strong className="text-yellow-400">Important:</strong> This name is permanent and cannot be changed. It's how others will see you in random chats, so choose wisely!</p>
                     </div>
-
                     <div className="pt-4 border-t border-gray-700">
                         <h2 className="text-2xl font-bold text-white mb-4">How It All Works: App Features</h2>
                         <ul className="space-y-4">
@@ -149,13 +131,11 @@ function AboutScreen({ setView }) {
                             <li><strong className="text-white">Saved Chats:</strong> Access all your saved conversations in the "Saved Chats" tab to continue the conversation anytime.</li>
                         </ul>
                     </div>
-
                     <div className="pt-4 border-t border-gray-700 text-center">
                         <h2 className="text-2xl font-bold text-white mb-2">A Final Word</h2>
                         <p>This is the first test launch of IPU Friendlist at GTBIT. Your support and feedback are crucial for our success. Our goal is to create a fun and safe new way for all of us at IPU to connect, one campus at a time.</p>
                         <p className="font-semibold text-white mt-2">Help us make this initial launch a success so we can roll it out to the entire university!</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -185,7 +165,7 @@ function HomeScreen({ onlineCount, findChat, setView, isAdmin, handleLogout }) {
             <div className="absolute top-4 right-4">
                 <button onClick={handleLogout} className="px-4 py-2 rounded-lg bg-red-600 text-sm font-bold hover:bg-red-700">Logout</button>
             </div>
-            <h1 className="text-5xl font-bold mb-4">Welcome to IPU Friendlist !</h1>
+            <h1 className="text-5xl font-bold mb-4">Welcome to IPU Friendlist!</h1>
             <p className="text-gray-400 mb-8 text-lg">There are currently {onlineCount} users online.</p>
             <div className="flex flex-col sm:flex-row gap-4">
                 <button onClick={findChat} className="px-10 py-4 rounded-lg bg-blue-600 text-xl font-bold hover:bg-blue-700 transition-transform transform hover:scale-105">Find a Chat</button>
@@ -211,8 +191,13 @@ function ChatScreen({ partnerInfo, isPersistentChat, chatMessages, chatEndRef, c
                 </div>
                 <div className="flex-grow overflow-y-auto p-4 bg-gray-700">
                     {chatMessages.map((msg, index) => (
-                        <div key={index} className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-xs md:max-w-md p-3 rounded-2xl mb-2 ${msg.sender === 'me' ? 'bg-blue-600 rounded-br-none' : 'bg-gray-600 rounded-bl-none'}`}>{msg.text}</div>
+                        <div key={index} className={`flex mb-3 ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}`}>
+                                <div className={`max-w-xs md:max-w-md p-3 rounded-2xl ${msg.sender === 'me' ? 'bg-blue-600 rounded-br-none' : 'bg-gray-600 rounded-bl-none'}`}>
+                                    {msg.text}
+                                </div>
+                                <span className="text-xs text-gray-400 mt-1 px-1">{formatTime(msg.timestamp)}</span>
+                            </div>
                         </div>
                     ))}
                     <div ref={chatEndRef} />
@@ -288,64 +273,7 @@ function RateChatScreen({ handleRateSubmit, rating, setRating, review, setReview
     );
 }
 
-function SavedChatsScreen({ setView, openPersistentChat }) {
-    const [chats, setChats] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-
-    // This logic is now self-contained within the component
-    useEffect(() => {
-        const fetchChats = async () => {
-            setLoading(true);
-            try {
-                const token = localStorage.getItem('authToken');
-                if (!token) {
-                    throw new Error("Not authenticated");
-                }
-                
-                const { data } = await api.get('/chats', {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                const formattedChats = data.map((chat) => ({
-                    id: chat.id,
-                    partnerName: chat.participants[0]?.fake_name || 'A Stranger',
-                }));
-                setChats(formattedChats);
-                setError('');
-            } catch (err) {
-                setError('Failed to load your chats.');
-                toast.error('Failed to load chats.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchChats();
-    }, []);
-
-    const handleDeleteChat = async (chatId) => {
-        toast((t) => (
-            <div className="flex flex-col gap-2">
-                <p>Delete this chat permanently?</p>
-                <div className="flex gap-2">
-                    <button
-                        className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                        onClick={async () => {
-                            toast.dismiss(t.id);
-                            // The fetchChats function is not available here, so we will reload the page
-                            // This is a simple and effective way to refresh the data
-                            window.location.reload(); 
-                        }}
-                    >
-                        Confirm
-                    </button>
-                    <button className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded" onClick={() => toast.dismiss(t.id)}>Cancel</button>
-                </div>
-            </div>
-        ));
-    };
-
+function SavedChatsScreen({ setView, openPersistentChat, chats, loading, error, handleDeleteChat }) {
     return (
         <div className="bg-gray-900 text-white min-h-screen p-4 pt-8">
             <div className="w-full max-w-lg mx-auto">
@@ -412,29 +340,32 @@ function AdminDashboardScreen({ setView }) {
         fetchData(adminView);
     }, [adminView]);
 
-    const handleBanUser = async (userId, fakeName) => {
+    const handleBanUser = async (userId, fakeName, currentStatus) => {
+        const action = currentStatus === 'BANNED' ? 'Unban' : 'Ban';
+        const confirmationMessage = `Are you sure you want to ${action.toLowerCase()} ${fakeName}?`;
+
         toast((t) => (
             <div className="flex flex-col gap-2">
-                <p>Ban <b>{fakeName}</b> permanently?</p>
+                <p>{confirmationMessage}</p>
                 <div className="flex gap-2">
                     <button
-                        className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                        className={`w-full ${action === 'Ban' ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'} text-white font-bold py-1 px-2 rounded`}
                         onClick={async () => {
                             toast.dismiss(t.id);
                             const token = localStorage.getItem('authToken');
                             await toast.promise(
                                 api.post('/admin/ban', { userId }, { headers: { Authorization: `Bearer ${token}` } }),
                                 {
-                                    loading: 'Banning user...',
-                                    success: `${fakeName} has been banned.`,
-                                    error: 'Failed to ban user.',
+                                    loading: `${action}ning user...`,
+                                    success: `${fakeName} has been ${action.toLowerCase()}ned.`,
+                                    error: `Failed to ${action.toLowerCase()} user.`,
                                 }
                             );
                             setSelectedItem(null);
                             fetchData(adminView);
                         }}
                     >
-                        Confirm
+                        Confirm {action}
                     </button>
                     <button className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded" onClick={() => toast.dismiss(t.id)}>Cancel</button>
                 </div>
@@ -578,7 +509,7 @@ function AdminDashboardScreen({ setView }) {
                                     ))}
                                 </div>
                                 {selectedItem.reported && (
-                                    <button onClick={() => handleBanUser(selectedItem.reportedId, selectedItem.reported.fake_name)} className="w-full mt-4 p-3 rounded bg-red-700 font-bold hover:bg-red-800">
+                                    <button onClick={() => handleBanUser(selectedItem.reportedId, selectedItem.reported.fake_name, selectedItem.reported.status)} className="w-full mt-4 p-3 rounded bg-red-700 font-bold hover:bg-red-800">
                                         Ban {selectedItem.reported.fake_name}
                                     </button>
                                 )}
@@ -592,13 +523,16 @@ function AdminDashboardScreen({ setView }) {
                                 <p><strong>Full Name:</strong> {selectedItem.name}</p>
                                 <p><strong>Enrollment No:</strong> {selectedItem.enrollment_no}</p>
                                 <p><strong>Status:</strong> {selectedItem.status}</p>
+                                <p><strong>Email:</strong> {selectedItem.email}</p>
+                                <p><strong>Phone No:</strong> {selectedItem.phone_no}</p>
+                                <p><strong>Gender:</strong> {selectedItem.gender}</p>
                                 <h2 className="text-xl font-bold mt-4 mb-2">Friend List ({userChats.length})</h2>
                                 <div className="bg-gray-700 p-3 rounded h-48 overflow-y-auto">
                                     {userChats.length > 0 ? (
                                         <ul>{userChats.map(chat => <li key={chat.id}>{chat.participants[0]?.fake_name}</li>)}</ul>
                                     ) : <p>No saved chats.</p>}
                                 </div>
-                                <button onClick={() => handleBanUser(selectedItem.id, selectedItem.fake_name)} className="w-full mt-4 p-3 rounded bg-red-700 font-bold hover:bg-red-800">
+                                <button onClick={() => handleBanUser(selectedItem.id, selectedItem.fake_name, selectedItem.status)} className="w-full mt-4 p-3 rounded bg-red-700 font-bold hover:bg-red-800">
                                     Ban {selectedItem.fake_name}
                                 </button>
                             </div>
@@ -696,7 +630,7 @@ function AdminDashboardScreen({ setView }) {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm">{user.fake_name || 'Not Set'}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status === 'BANNED' ? 'bg-red-900 text-red-300' :
-                                                        user.status === 'FROZEN' ? 'bg-blue-900 text-blue-300' : 'bg-green-900 text-green-300'
+                                                    user.status === 'FROZEN' ? 'bg-blue-900 text-blue-300' : 'bg-green-900 text-green-300'
                                                     }`}>
                                                     {user.status}
                                                 </span>
@@ -706,9 +640,9 @@ function AdminDashboardScreen({ setView }) {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-4">
                                                 <button onClick={() => handleViewUserChats(user)} className="text-indigo-400 hover:text-indigo-600">View</button>
-                                                <button onClick={() => setModal({ type: 'freeze', data: { userId: user.id, fakeName: user.fake_name || user.name } })} className="text-blue-400 hover:text-blue-600">Freeze/Unfreeze</button>
+                                                <button onClick={() => setModal({ type: 'freeze', data: { userId: user.id, fakeName: user.fake_name || user.name } })} className="text-blue-400 hover:text-blue-600">Freeze</button>
                                                 <button onClick={() => setModal({ type: 'message', data: { userId: user.id, fakeName: user.fake_name || user.name } })} className="text-green-400 hover:text-green-600">Message</button>
-                                                <button onClick={() => handleBanUser(user.id, user.fake_name || user.name)} className="text-red-400 hover:text-red-600">Ban</button>
+                                                <button onClick={() => handleBanUser(user.id, user.fake_name || user.name, user.status)} className={`${user.status === 'BANNED' ? 'text-yellow-400 hover:text-yellow-600' : 'text-red-400 hover:text-red-600'}`}>{user.status === 'BANNED' ? 'Unban' : 'Ban'}</button>
                                             </td>
                                         </tr>
                                     ))}
@@ -832,7 +766,7 @@ function App() {
             setView('in_chat');
         });
         socket.on('new_message', (message) => {
-            const messageData = { text: message, sender: 'partner' };
+            const messageData = { text: message, sender: 'partner', timestamp: new Date() };
             setChatMessages((prev) => [...prev, messageData]);
             if (!isPersistentChat) {
                 setLastChatHistory((prev) => [...prev, messageData]);
@@ -940,7 +874,8 @@ function App() {
             });
             const formattedMessages = data.map(msg => ({
                 text: msg.content,
-                sender: msg.sender_id === userId ? 'me' : 'partner'
+                sender: msg.sender_id === userId ? 'me' : 'partner',
+                timestamp: new Date(msg.created_at)
             }));
             setChatMessages(formattedMessages);
             setRoomId(chatId);
@@ -994,7 +929,7 @@ function App() {
     const handleSendMessage = (e) => {
         e.preventDefault();
         if (currentMessage.trim()) {
-            const messageData = { text: currentMessage, sender: 'me' };
+            const messageData = { text: currentMessage, sender: 'me', timestamp: new Date() };
             socketRef.current.emit('send_message', {
                 roomId,
                 message: currentMessage,
@@ -1143,7 +1078,7 @@ function App() {
                                 try {
                                     await api.delete(`/chats/${chatId}`);
                                     toast.success('Chat deleted.');
-                                    fetchChats();
+                                    fetchChats(); // Refresh the list
                                 } catch (err) {
                                     toast.error('Failed to delete chat.');
                                 }

@@ -72,7 +72,7 @@ router.get('/users', adminProtect, async (req, res) => {
         const users = await prisma.user.findMany({
             select: {
                 id: true, name: true, fake_name: true, enrollment_no: true,
-                status: true, averageRating: true, ratingCount: true,
+                status: true, averageRating: true, ratingCount: true,email: true,phone_no: true, gender: true 
             },
         });
         res.status(200).json(users);
@@ -81,17 +81,26 @@ router.get('/users', adminProtect, async (req, res) => {
     }
 });
 
-// POST /api/admin/ban
+// POST /api/admin/ban - Toggles a user's status between BANNED and ACTIVE
 router.post('/ban', adminProtect, async (req, res) => {
     const { userId } = req.body;
     try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Determine the new status
+        const newStatus = user.status === 'BANNED' ? 'ACTIVE' : 'BANNED';
+        
         await prisma.user.update({
             where: { id: userId },
-            data: { status: 'BANNED' },
+            data: { status: newStatus },
         });
-        res.status(200).json({ message: 'User has been banned.' });
+
+        res.status(200).json({ message: `User has been ${newStatus.toLowerCase()}.` });
     } catch (error) {
-        res.status(500).json({ error: 'Failed to ban user.' });
+        res.status(500).json({ error: 'Failed to update user status.' });
     }
 });
 

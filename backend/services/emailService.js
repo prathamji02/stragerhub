@@ -29,7 +29,7 @@ export const sendOtpEmail = async (to, otp) => {
     try {
         await resend.emails.send({
             // Resend's test address works out-of-the-box, avoiding verification issues.
-            from: 'IPU Friendlist <onboarding@resend.dev>',
+           from: 'IPU Friendlist <noreply@ipufriendlist.com>', 
             to: to,
             subject: 'Your Login OTP for IPU Friendlist',
             html: `<p>Your One-Time Password is: <strong>${otp}</strong></p>`,
