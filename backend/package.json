@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "npx prisma migrate deploy && npx prisma generate"
+    "start": "npx prisma migrate deploy && node server.js",
+    "build": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.15.0",
