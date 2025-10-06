@@ -28,7 +28,7 @@ function LoginScreen({ handleLogin, enrollmentNo, setEnrollmentNo, message, isLo
     return (
         <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
             <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
-                <h1 className="text-3xl font-bold mb-6 text-center">Login to StrangerHub</h1>
+                <h1 className="text-3xl font-bold mb-6 text-center">Login to IPU FriendList</h1>
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
                         <label htmlFor="enrollmentNo" className="block mb-2 text-sm font-medium text-gray-300">Enrollment Number</label>
@@ -90,55 +90,53 @@ function AboutScreen({ setView }) {
                 <div className="bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg space-y-6 text-gray-300">
                     
                     <div className="text-center">
-                        <h1 className="text-4xl font-bold mb-2 text-white">Welcome to StrangerHub!</h1>
-                        <p className="text-lg font-semibold text-blue-400">Hey, GTBIT!</p>
+                        <h1 className="text-4xl font-bold mb-2 text-white">Welcome to IPU Friendlist!</h1>
+                        <p className="text-lg font-semibold text-blue-400">The exclusive network for GGSIPU students.</p>
                     </div>
 
-                    <p>If you're a fresher who hasn't had the chance to make new friends yet, or if you're just a bit shy about starting conversations in person, our team has built something amazing just for you.</p>
-                    <p><strong className="text-white">StrangerHub is a completely free, anonymous chat app built exclusively for the students of our college.</strong></p>
-                    <p>After analyzing other chat apps, we realized that fake accounts are a huge problem that ruins the user experience. At the same time, we know that not everyone is comfortable revealing their real identity right away.</p>
-                    <p>Our solution is a unique system that guarantees both <strong className="text-white">Authenticity and Anonymity</strong>. You can chat with a verified fellow student without revealing who you are, and only choose to connect when you're both comfortable.</p>
+                    <p>Hey, IPU students! Ever felt like you want to make more friends across different years and branches, but don't know where to start? We've built something amazing just for our university community.</p>
+                    
+                    <p className="text-lg italic text-center text-gray-400 my-4">"Connect with real people. Have meaningful conversations. Anonymously."</p>
+
+                    <p><strong className="text-white">IPU Friendlist is a secure platform built exclusively for the students of GGSIPU.</strong> Our unique system guarantees both <strong className="text-white">Authenticity and Anonymity</strong>, so you can chat with a verified fellow student without revealing who you are.</p>
+                    
+                    <div className="bg-blue-900/50 p-4 rounded-lg text-center">
+                        <h2 className="text-xl font-bold text-white">Initial Launch: GTBIT Campus</h2>
+                        <p className="mt-2 text-blue-200">We are kicking things off with an exclusive launch for the students of **GTBIT**. If the response from our home campus is great, we will expand to include all other colleges of our university!</p>
+                    </div>
 
                     <div className="pt-4 border-t border-gray-700">
                         <h2 className="text-2xl font-bold text-white mb-4">Getting Started: A Quick Guide</h2>
                         
-                        <h3 className="text-xl font-semibold text-white mb-2">One-Time Registration (Choose Your Method)</h3>
-                        <p>To ensure our community is 100% genuine, we have a simple, one-time verification process. You can register in one of two ways:</p>
+                        <h3 className="text-xl font-semibold text-white mb-2">One-Time Registration (100% Verified)</h3>
+                        <p>To ensure our community is genuine, we have a simple, one-time verification process:</p>
                         <ul className="list-disc list-inside space-y-3 pl-4 mt-2">
                             <li><strong className="text-white">Offline (Recommended):</strong> Find one of our team members on campus for instant, in-person verification.</li>
                             <li><strong className="text-white">Online:</strong> Send an email to <span className="text-blue-400">airaworld28@gmail.com</span> with a clear photo of the front of your College ID card and your details (Enrollment No, Full Name, Phone No, Email ID, Gender) typed in the email.</li>
                         </ul>
 
                         <h3 className="text-xl font-semibold text-white mt-6 mb-2">Simple & Secure Login</h3>
-                        <p>Once you are registered, you can log in at any time using your unique Enrollment Number. A One-Time Password (OTP) will be sent to your registered email address to verify your identity.</p>
+                        <p>Once registered, log in anytime with your unique Enrollment Number. A One-Time Password (OTP) will be sent to your registered email for security.</p>
 
                         <h3 className="text-xl font-semibold text-white mt-6 mb-2">Create Your Alias</h3>
-                        <p><strong className="text-yellow-400">Important:</strong> On your first login, you will be asked to create a "fake name" or username. This name is permanent and cannot be changed. It's how others will see you in random chats, so choose wisely!</p>
+                        <p><strong className="text-yellow-400">Important:</strong> This name is permanent and cannot be changed. It's how others will see you in random chats, so choose wisely!</p>
                     </div>
 
                     <div className="pt-4 border-t border-gray-700">
                         <h2 className="text-2xl font-bold text-white mb-4">How It All Works: App Features</h2>
                         <ul className="space-y-4">
-                            <li><strong className="text-white">Find a Chat:</strong> The main feature. Click this button to be instantly and randomly connected with another online student from our college.</li>
-                            <li><strong className="text-white">See User Ratings:</strong> When you connect with a stranger, you will see their public rating (out of 5 stars) and their gender, which helps you know if they are a good person to talk to.</li>
-                            <li><strong className="text-white">End Chat:</strong> Not feeling the conversation? No problem. Just click "End Chat" at any time to immediately end the conversation and return to the home screen.</li>
-                            <li><strong className="text-white">Rate, Review, Block, & Report:</strong> After every random chat, you will be taken to a feedback screen. This is your power to help build a safe community:
-                                <ul className="list-disc list-inside space-y-2 pl-6 mt-2 text-gray-400">
-                                    <li><strong className="text-gray-300">Rate & Review:</strong> Leave an honest star rating and an optional review about your conversation partner.</li>
-                                    <li><strong className="text-gray-300">Block:</strong> If you don't want to be matched with that person again, you can block them.</li>
-                                    <li><strong className="text-gray-300">Report:</strong> If someone is being disrespectful or breaking the rules, please report them immediately. Your report, along with the chat history, will be sent to the admin for review.</li>
-                                </ul>
-                            </li>
-                            <li><strong className="text-white">Connect Request:</strong> Had a great conversation? Send a "Connect" request! If the other person accepts, your chat will be permanently saved.</li>
-                            <li><strong className="text-white">Saved Chats:</strong> You can access all your saved conversations in the "Saved Chats" tab. From there, you can view your chat history and continue the conversation anytime.</li>
-                            <li><strong className="text-white">Delete Saved Chats:</strong> You have full control. You can delete any of your saved chats at any time. This action is permanent and will delete the chat for both users.</li>
+                            <li><strong className="text-white">Find a Chat:</strong> Click this button to be instantly and randomly connected with another online student from our campus (GTBIT for now!).</li>
+                            <li><strong className="text-white">Community-Powered Safety:</strong> Before you even say "hi," you'll see every user's public average rating. This helps you decide if you want to start a conversation.</li>
+                            <li><strong className="text-white">Rate, Review, Block, & Report:</strong> After every chat, you can rate your partner, block them from future chats, or report any misconduct. This is your power to help us build a safe and respectful community.</li>
+                            <li><strong className="text-white">Connect Request:</strong> Had a great conversation? Send a "Connect" request! If they accept, your chat is permanently saved. Since everyone is from our university, you can turn an anonymous friend into a real-life connection.</li>
+                            <li><strong className="text-white">Saved Chats:</strong> Access all your saved conversations in the "Saved Chats" tab to continue the conversation anytime.</li>
                         </ul>
                     </div>
 
                     <div className="pt-4 border-t border-gray-700 text-center">
                         <h2 className="text-2xl font-bold text-white mb-2">A Final Word</h2>
-                        <p>This is the first test launch of our app. We are counting on your support and honest feedback to make it better. Our goal is to create a fun, safe, and exciting new way for all of us at GTBIT to connect.</p>
-                        <p className="font-semibold text-white mt-2">We hope you enjoy it!</p>
+                        <p>This is the first test launch of IPU Friendlist at GTBIT. Your support and feedback are crucial for our success. Our goal is to create a fun and safe new way for all of us at IPU to connect, one campus at a time.</p>
+                        <p className="font-semibold text-white mt-2">Help us make this initial launch a success so we can roll it out to the entire university!</p>
                     </div>
 
                 </div>
@@ -170,7 +168,7 @@ function HomeScreen({ onlineCount, findChat, setView, isAdmin, handleLogout }) {
             <div className="absolute top-4 right-4">
                 <button onClick={handleLogout} className="px-4 py-2 rounded-lg bg-red-600 text-sm font-bold hover:bg-red-700">Logout</button>
             </div>
-            <h1 className="text-5xl font-bold mb-4">Welcome to StrangerHub!</h1>
+            <h1 className="text-5xl font-bold mb-4">Welcome to IPU Friendlist !</h1>
             <p className="text-gray-400 mb-8 text-lg">There are currently {onlineCount} users online.</p>
             <div className="flex flex-col sm:flex-row gap-4">
                 <button onClick={findChat} className="px-10 py-4 rounded-lg bg-blue-600 text-xl font-bold hover:bg-blue-700 transition-transform transform hover:scale-105">Find a Chat</button>
