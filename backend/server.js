@@ -24,7 +24,11 @@ const io = new Server(httpServer, {
 
 // Configure CORS to specifically allow your Vercel frontend
 const corsOptions = {
-  origin: 'https://stragerhub.vercel.app',
+  origin: [
+      'https://stragerhub.vercel.app',    // Your Vercel URL
+      'https://ipufriendlist.com',      // Your new custom domain
+      'https://www.ipufriendlist.com'   // The 'www' version as well
+  ],
   optionsSuccessStatus: 200
 };
 
