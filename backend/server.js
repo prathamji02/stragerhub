@@ -27,7 +27,8 @@ const corsOptions = {
   origin: [
       'https://stragerhub.vercel.app',    // Your Vercel URL
       'https://ipufriendlist.com',      // Your new custom domain
-      'https://www.ipufriendlist.com'   // The 'www' version as well
+      'https://www.ipufriendlist.com' ,
+      'http://localhost:5173'  // The 'www' version as well
   ],
   optionsSuccessStatus: 200
 };
