@@ -22,7 +22,13 @@ const io = new Server(httpServer, {
   cors: { origin: "*" }
 });
 
-app.use(cors());
+// Configure CORS to specifically allow your Vercel frontend
+const corsOptions = {
+  origin: 'https://stragerhub.vercel.app',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
