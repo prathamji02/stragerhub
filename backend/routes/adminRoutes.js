@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import multer from 'multer';
 import xlsx from 'xlsx';
+import { sendWelcomeEmail } from '../services/emailService.js';
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -224,6 +225,9 @@ router.post('/register', adminProtect, async (req, res) => {
         const newUser = await prisma.user.create({
             data: { enrollment_no, name, email, phone_no, gender }
         });
+
+         await sendWelcomeEmail(newUser.name, newUser.email, newUser.enrollment_no);
+
         res.status(201).json({ message: `User ${newUser.name} created successfully.` });
     } catch (error) {
         if (error.code === 'P2002') {
@@ -252,6 +256,8 @@ router.post('/users/upload', adminProtect, upload.single('userFile'), async (req
                     update: { name: user.name, email: user.mail_id, phone_no: String(user.phone_no), gender: user.gender },
                     create: { enrollment_no: String(user.enrollment_no), name: user.name, email: user.mail_id, phone_no: String(user.phone_no), gender: user.gender },
                 });
+
+                await sendWelcomeEmail(upsertedUser.name, upsertedUser.email, upsertedUser.enrollment_no);
                 count++;
             } catch (e) {
                 console.error(`Failed to process user: ${user.name}`, e);
